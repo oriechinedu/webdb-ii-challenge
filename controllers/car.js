@@ -12,7 +12,16 @@ const getAllCars = async (req, res, next) => {
     next(error)
   }
 }
+const createNewCar = async (req, res, next) => {
+  try {
+    const car = await Car.create(req.body);
+    return res.status(201).json({ status: 'OK', car})
+  } catch (error) {
+    next(error)
+  }
+}
 
 module.exports = {
-  getAllCars
+  getAllCars,
+  createNewCar
 }
