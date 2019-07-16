@@ -39,8 +39,23 @@ const updateCar = async (req, res, next) => {
   }
 }
 
+const deleteCar = async (req, res, next) => {
+  try {
+    const deleted = await Car.remove(req.params.id)
+    if (!deleted) {
+      throw new ErrorHandler(404, 'The car with the specified ID does not exist')
+    }
+    return res.status(200).json({
+      message: 'The car with the specified ID has been deleted'
+    })
+  } catch (error) {
+    next(error)
+  }
+}
+
 module.exports = {
   getAllCars,
   createNewCar,
-  updateCar
+  updateCar,
+  deleteCar
 }

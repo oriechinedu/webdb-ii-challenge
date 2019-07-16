@@ -30,9 +30,17 @@ const update = async (id, car) => {
     throw new ErrorHandler(500, error.message)
   }
 };
+
+const remove = async (id) => {
+  const deleted = await db("cars")
+    .where({ id })
+    .del();
+  return deleted;
+}
 module.exports = {
   all,
   create,
   findById,
-  update
+  update,
+  remove
 };
