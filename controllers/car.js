@@ -15,7 +15,10 @@ const getAllCars = async (req, res, next) => {
 const createNewCar = async (req, res, next) => {
   try {
     const car = await Car.create(req.body);
-    return res.status(201).json({ status: 'OK', car})
+    if (!car) {
+      throw new ErrorHandler(500, 'Could not save the car in the database')
+    }
+    return res.status(201).json({ status: 'OK', car })
   } catch (error) {
     next(error)
   }
