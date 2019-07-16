@@ -13,15 +13,26 @@ const findById = async id => {
 const create = async car => {
   try {
     const id = await db("cars").insert(car);
-    const newCar = await findById(id[0])
+    const newCar = await findById(id[0]);
     return newCar;
   } catch (error) {
     throw new ErrorHandler(500, error.message);
   }
 };
 
+const update = async (id, car) => {
+  try {
+    const updated = await db("cars")
+    .where({ id })
+    .update(car);
+    return updated
+  } catch (error) {
+    throw new ErrorHandler(500, error.message)
+  }
+};
 module.exports = {
   all,
   create,
-  findById
+  findById,
+  update
 };

@@ -24,7 +24,23 @@ const createNewCar = async (req, res, next) => {
   }
 }
 
+const updateCar = async (req, res, next) => {
+  try {
+    const updated = await Car.update(req.params.id, req.body);
+    console.log(updated);
+    if (!updated) {
+      throw new ErrorHandler(500, 'The Car with the specified ID could not be updated')
+    }
+    return res.status(200).json({
+      message: 'Car with the specified ID has been updated'
+    })
+  } catch (error) {
+    next(error)
+  }
+}
+
 module.exports = {
   getAllCars,
-  createNewCar
+  createNewCar,
+  updateCar
 }

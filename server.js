@@ -1,6 +1,6 @@
 const express = require('express')
 const { handleError } = require('./helpers')
-const { getAllCars, createNewCar } = require('./controllers/car')
+const { getAllCars, createNewCar, updateCar } = require('./controllers/car')
 const { validateCarInput } = require('./middleware')
 const app = express()
 
@@ -12,6 +12,7 @@ app.get('/', (req, res, next) => {
 
 app.get('/cars', getAllCars)
 app.post('/cars', validateCarInput, createNewCar)
+app.put('/cars/:id', validateCarInput, updateCar)
 
 app.use((err, req, res, next) => {
   handleError(err, res);
